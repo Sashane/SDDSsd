@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Thaaya - Cart </title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!--g font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="body"> 
+    <header>
+        <h1 class="title">Café Thaaya</h1>
+        <nav class="navbar navbar-dark">
+            <ul>
+                <li><a href="index.html" class="nav-link nav-item">Home</a></li>
+                <li><a href="reservation.php" class="nav-link nav-item">Reservation</a></li>
+                <li><a href="menu.html" class="nav-link nav-item">Menu</a></li>
+                <li><a href="contact.html" class="nav-link nav-item">Contact Us</a></li>
+                <li><a href="cart.html" class="nav-link nav-item active"><i class="fas fa-shopping-cart"></i><span  class="cart-counter">0</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid">
+        <div id="bg-hd" class="bg image">
+            <div class="bg-hd">
+                    <img class="bg-hd" src="img/bg-coffee-hd.jpg" alt="Image" id="img1">
+            </div>    
+        </div>
+    </div>
+    </header>
+    <!--cart start-->
+    <div class="progress-container">
+        <div class="progress-line" id="progressLine"></div>
+        <div class="step" id="step1">
+            <div class="step-circle">1</div>
+            <div class="step-text">Review Order</div>
+        </div>
+        <div class="step step-inactive" id="step2">
+            <div class="step-circle">2</div>
+            <div class="step-text">Address</div>
+        </div>
+        <div class="step step-inactive" id="step3">
+            <div class="step-circle">3</div>
+            <div class="step-text">Confirm Order</div>
+        </div>
+    </div>
+
+    <div id="page1" class="page">
+        <div class="cart-container">
+            <div class="cart-items">
+                <h2>Items</h2>
+                <div class="item">
+                    <span>Black Coffee</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Black Coffee', -1)">-</button>
+                        <span id="qty-Black Coffee">0</span>
+                        <button onclick="updateQuantity('Black Coffee', 1)">+</button>
+                    </div>
+                    <span>Rs. 500</span>
+                </div>
+                <div class="item">
+                    <span>Mocha</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Mocha', -1)">-</button>
+                        <span id="qty-Mocha">0</span>
+                        <button onclick="updateQuantity('Mocha', 1)">+</button>
+                    </div>
+                    <span>Rs. 700</span>
+                </div>
+                <div class="item">
+                    <span>Latte</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Latte', -1)">-</button>
+                        <span id="qty-Latte">0</span>
+                        <button onclick="updateQuantity('Latte', 1)">+</button>
+                    </div>
+                    <span>Rs. 800</span>
+                </div>
+                <div class="item">
+                    <span>Red Velvet Cake</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Red Velvet Cake', -1)">-</button>
+                        <span id="qty-Red Velvet Cake">0</span>
+                        <button onclick="updateQuantity('Red Velvet Cake', 1)">+</button>
+                    </div>
+                    <span>Rs. 800</span>
+                </div>
+                <div class="item">
+                    <span>Club Sandwich</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Club Sandwich', -1)">-</button>
+                        <span id="qty-Club Sandwich">0</span>
+                        <button onclick="updateQuantity('Club Sandwich', 1)">+</button>
+                    </div>
+                    <span>Rs. 600</span>
+                </div>
+                <div class="item">
+                    <span>Butter Croissant</span>
+                    <div class="quantity">
+                        <button onclick="updateQuantity('Butter Croissant', -1)">-</button>
+                        <span id="qty-Butter Croissant">0</span>
+                        <button onclick="updateQuantity('Butter Croissant', 1)">+</button>
+                    </div>
+                    <span>Rs. 400</span>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <h2>Cart Summary</h2>
+                <div id="summary-items"></div>
+                <p>Total: Rs. <span id="total-price">0</span></p>
+                <button onclick="goToPage(2)" id="next-to-address" disabled>Proceed to Address</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page2" class="page" style="display: none;">
+        <form id="address-form">
+            <h2>Enter Your Details</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="phone">Telephone Number:</label>
+            <input type="tel" id="phone" required>
+            <label for="address">Address:</label>
+            <textarea id="address" required></textarea>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" required>
+            <button type="button" onclick="goToPage(1)">Back</button>
+            <button type="button" onclick="goToPage(3)">Proceed to Confirm</button>
+        </form>
+    </div>
+
+    <div id="page3" class="page" style="display: none;">
+        <h2>Order Confirmation</h2>
+        <div id="final-summary"></div>
+        <p>Subtotal: Rs. <span id="subtotal">0</span></p>
+        <p>Discount (10% if subtotal > 2000): Rs. <span id="discount">0</span></p>
+        <p>Delivery Charges: Rs. <span id="delivery">100</span></p>
+        <p>Total: Rs. <span id="final-total">0</span></p>
+        <button onclick="goToPage(2)">Back</button>
+        <button onclick="confirmOrder()">Confirm Order</button>
+    </div>
+
+
+    <!--cart end-->
+
+    <!--FOOTER-->
+    <div class="container-fluid-footer sp2 ">
+        <div class="container">
+            </div>
+        </div>        
+        
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-section about">
+                <h3>Café Thaaya</h3>
+                <p>
+                    Serving premium coffee and desserts across Sri Lanka.  
+                    A place for community, creativity, and comfort.
+                </p>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="reservation.html">Reservation</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+
+                </ul>
+            </div>
+            <br>
+
+            <div class="footer-section contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Main St, Colombo</p>
+                <p><i class="fas fa-phone"></i> +94 77 123 4567</p>
+                <p><i class="fas fa-envelope"></i> info@cafethaaya.com</p>
+            </div>
+
+            <div class="footer-section social">
+                <h4>Follow Us</h4>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <hr>
+        <p class="footer-bottom">&copy; 2025 Café Thaaya | All Rights Reserved
+        <br>S.H.S.D.D.S | DIT/24/03/074
+        </p>
+        
+    </footer>
+
+        </div>
+    </div>
+
+                             
+            
+    <!-- Back to Top button -->
+    <button id="backToTopBtn" title="Go to top">↑</button>
+
+    <!-- JavaScript for Back to Top functionality -->
+    <script src="js/BK_top.js"></script>
+    <!--cart js-->
+    <script src="js/cart.js"></script>
+  
+
+
+</body>
+</html>
